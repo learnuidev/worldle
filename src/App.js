@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 import { wordsDictionary } from './constants'
+import { world } from './data/cities'
 
+
+console.log("worldle", world)
 // Steps:
 // 1. Define game state
 // 2. Define handlers
 
 
-const secret = 'BLISS'
+const secret = 'PARIS'
 
 function App() {
   // 1. game state
@@ -37,7 +40,7 @@ function App() {
       alert("Not enough letters")
     } else if (secret === currentGuess) {
       alert('You win')
-    } else if (!wordsDictionary.includes(currentGuess)) {
+    } else if (!world.includes(currentGuess)) {
       alert('Word not in list')
     }
     else if (guessHistory.length === 5) {
@@ -72,7 +75,7 @@ function App() {
   return (
     <div className="App" onKeyUp={handleKeyup}>
       <header>
-        unwordle
+        worldle
       </header>
       <main>
         <div>
