@@ -351,6 +351,10 @@ export const india = [
     "தமிழ்"
 ]
 
+export const bhutan = [
+    "JAKAR"
+]
+
 export const world = [
     ...new Set([
         ...europe,
@@ -360,6 +364,7 @@ export const world = [
         ...us,
         ...canada,
         ...nepal,
-        ...india
+        ...india,
+        ...bhutan
     ])
 ]
