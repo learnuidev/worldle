@@ -160,6 +160,7 @@ export const asia = [
     'KABUL',
     'KANDY',
     'KIROV',
+    'DHAKA',
     'KURSK',
     'KYOTO',
     'LAOAG',
