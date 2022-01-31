@@ -1,5 +1,9 @@
+import {
+  InformationCircleIcon,
+  ChartBarIcon,
+  SunIcon,
+} from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
-import './App.css';
 import { wordsDictionary } from './constants'
 import { world } from './data/cities'
 
@@ -13,18 +17,12 @@ console.log("worldle", world)
 
 
 // Custom Components
-function KeyList(props) {
-  return <div id="key-list">
-    {props.keyList.map(key => {
-      return (<button onClick={() => props.handleKeyBoard(key)}>{key}</button>)
-    })}
-  </div>
-}
 
 function GameTile(props) {
   const { letter } = props
   return (
-    <div class="game-tile">
+    <div className="w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5
+                    text-lg font-bold">
       {letter}
     </div>
   )
@@ -33,7 +31,7 @@ function GameTile(props) {
 function GameRow(props) {
   const { guess } = props;
   return (
-    <div class="game-row">
+    <div className="flex justify-center mb-1">
       {guess.map(letter => {
         return <GameTile letter={letter} />
       })}
@@ -58,18 +56,18 @@ function GameBoard(props) {
   console.log("EMPTIES", empties)
   return (
 
-    <main class="game-board-container">
-      <div class="game-board">
-        {guessHistory.map((guess, idx) => {
-          return (<GameRow key={`${guess}-${idx}`} guess={guess.split("")} />)
-        })}
-        <GameRow guess={transformForView(currentGuess)} />
+    <main className="pb-6">
 
-        {/* <GameRow  */}
-        {empties.map((guess, idx) => {
-          return (<GameRow key={`${guess}-${idx}`} guess={guess.split("")} />)
-        })}
-      </div>
+      {guessHistory.map((guess, idx) => {
+        return (<GameRow key={`${guess}-${idx}`} guess={guess.split("")} />)
+      })}
+      <GameRow guess={transformForView(currentGuess)} />
+
+      {/* <GameRow  */}
+      {empties.map((guess, idx) => {
+        return (<GameRow key={`${guess}-${idx}`} guess={guess.split("")} />)
+      })}
+
     </main>
 
   )
@@ -79,6 +77,30 @@ function GameBoard(props) {
 // Convert keys items from string to object
 // Why? - can metadata such as cutom key color,
 // User can set their own color
+function KeyItem(props) {
+  return (
+    <button className={`flex mx-auto items-center 
+                        justify-center bg-slate-300 
+                        rounded mx-0.5 text-xs font-bold
+                        cursor-pointer uppercase`}
+      style={{ width: "100%", height: "58px" }}
+      onClick={() => props.handleKeyBoard(props.value)}>
+      {props.value}
+    </button>
+  )
+}
+
+function KeyList(props) {
+  return <div className={"flex justify-center mb-1 mx-auto"}>
+    {props.keyList.map(key => {
+      return (
+        <KeyItem key={key} handleKeyBoard={props.handleKeyBoard} value={key} />
+      )
+    })}
+  </div>
+}
+
+
 function KeyBoard(props) {
   const { on, handleKeyBoard } = props
   const keys = [
@@ -88,7 +110,7 @@ function KeyBoard(props) {
   ]
 
   return (
-    <div id="keyboard">
+    <div>
       {keys.map(keyList => {
         return <KeyList keyList={keyList} handleKeyBoard={handleKeyBoard} />
       })}
@@ -164,9 +186,15 @@ function App() {
 
 
   return (
-    <div className="game" onKeyUp={handleKeyup}>
-      <header>
-        worldle
+    <div className="py-8 sm:px-6 lg:px-8 max-w-7xl" onKeyUp={handleKeyup}>
+      <header className="flex w-80 mx-auto mt-10 mb-8">
+        <h1 className={"grow text-xl font-bold"}>worldle </h1>
+        <SunIcon className={"h-6"}
+        />
+        <InformationCircleIcon className={"h-6"}
+        />
+        <ChartBarIcon className={"h-6"}
+        />
       </header>
       <GameBoard guessHistory={guessHistory} currentGuess={currentGuess} />
       <KeyBoard handleKeyBoard={handleKeyBoard} />
